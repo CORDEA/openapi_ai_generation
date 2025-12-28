@@ -121,7 +121,7 @@ class ${component}Request with _$${component}Request {
 
 ```dart
 @freezed
-class ${component} with _$${component} {
+class ${component} with _$${component} implements Exception {
     const factory ${component}({
         // Define fields mapped according to the OpenAPI JSON spec for ${component}
     }) = _${component};
