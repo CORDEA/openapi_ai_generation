@@ -13,6 +13,9 @@
         "/users": {
             "get": {
                 "summary": "Get all users",
+                "tags": [
+                    "user"
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -41,6 +44,9 @@
             },
             "post": {
                 "summary": "Create a new user",
+                "tags": [
+                    "user"
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -60,14 +66,32 @@
                                 }
                             }
                         }
-                    }
-                },
-                "default": {
-                    "description": "Internal Server Error",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Error"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
                             }
                         }
                     }
@@ -77,6 +101,9 @@
         "/users/{id}": {
             "get": {
                 "summary": "Get a user by ID",
+                "tags": [
+                    "user"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -115,6 +142,9 @@
         "/users/{id}/posts": {
             "get": {
                 "summary": "Get all posts for a user",
+                "tags": [
+                    "post"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -184,6 +214,37 @@
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new post for a user",
+                "tags": [
+                    "post"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "User ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
                     }
                 }
             }
